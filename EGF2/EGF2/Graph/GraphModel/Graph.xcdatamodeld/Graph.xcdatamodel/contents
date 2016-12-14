@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11542" systemVersion="16B2555" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="GraphEdge" representedClassName=".GraphEdge" syncable="YES">
+        <attribute name="accessedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="cachedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="count" optional="YES" attributeType="Integer 64" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="edge" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="source" attributeType="String" indexed="YES" syncable="YES"/>
+    </entity>
+    <entity name="GraphEdgeObject" representedClassName=".GraphEdgeObject" syncable="YES">
+        <attribute name="edge" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="index" attributeType="Integer 64" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="source" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="target" attributeType="String" indexed="YES" syncable="YES"/>
+    </entity>
+    <entity name="GraphObject" representedClassName=".GraphObject" syncable="YES">
+        <attribute name="accessedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="cachedAt" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="data" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="id" attributeType="String" indexed="YES" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="GraphEdge" positionX="-54" positionY="18" width="128" height="120"/>
+        <element name="GraphEdgeObject" positionX="-54" positionY="9" width="128" height="105"/>
+        <element name="GraphObject" positionX="-63" positionY="-18" width="128" height="105"/>
+    </elements>
+</model>

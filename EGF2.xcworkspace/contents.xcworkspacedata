@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:TestSwift/TestSwift.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:TestObjC/TestObjC.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:EGF2/EGF2.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:EGF2GEN/EGF2GEN.xcodeproj">
+   </FileRef>
+</Workspace>

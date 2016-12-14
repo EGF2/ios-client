@@ -1,0 +1,472 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E5210AC01DD0733D00D9470C /* NSObject+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5210ABF1DD0733D00D9470C /* NSObject+Additions.swift */; };
+		E5210AC21DD0766500D9470C /* Data+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5210AC11DD0766500D9470C /* Data+Additions.swift */; };
+		E5210AC41DD0768600D9470C /* String+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5210AC31DD0768600D9470C /* String+Additions.swift */; };
+		E5210AC61DD087E600D9470C /* EGF2Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5210AC51DD087E600D9470C /* EGF2Types.swift */; };
+		E5210AC81DD0897600D9470C /* EGF2GraphAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5210AC71DD0897600D9470C /* EGF2GraphAPI.swift */; };
+		E5210ACA1DD08A0500D9470C /* EGF2Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5210AC91DD08A0500D9470C /* EGF2Keychain.swift */; };
+		E5210ACC1DD090A100D9470C /* Dictionary+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5210ACB1DD090A100D9470C /* Dictionary+Additions.swift */; };
+		E521578F1DE6F19D007FEC19 /* GraphEdgeObject+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E521578D1DE6F19D007FEC19 /* GraphEdgeObject+CoreDataClass.swift */; };
+		E52157901DE6F19D007FEC19 /* GraphEdgeObject+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E521578E1DE6F19D007FEC19 /* GraphEdgeObject+CoreDataProperties.swift */; };
+		E5215D811DD198DD00C11640 /* Graph.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E5215D7B1DD198DD00C11640 /* Graph.xcdatamodeld */; };
+		E5215D8C1DD1D55800C11640 /* EGF2Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5215D8B1DD1D55800C11640 /* EGF2Account.swift */; };
+		E5215D8E1DD1D63A00C11640 /* EGF2Directory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5215D8D1DD1D63A00C11640 /* EGF2Directory.swift */; };
+		E53F5EA41DDDAA9300E5801B /* strip.sh in Resources */ = {isa = PBXBuildFile; fileRef = E53F5EA31DDDAA9300E5801B /* strip.sh */; };
+		E54C7D981DED6D0B002B3327 /* EGF2Graph+Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54C7D971DED6D0B002B3327 /* EGF2Graph+Notifications.swift */; };
+		E54C9FD51DF6991E00AC4F4E /* GraphObject+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54C9FD11DF6991E00AC4F4E /* GraphObject+CoreDataClass.swift */; };
+		E54C9FD61DF6991E00AC4F4E /* GraphObject+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54C9FD21DF6991E00AC4F4E /* GraphObject+CoreDataProperties.swift */; };
+		E54C9FD71DF6991E00AC4F4E /* GraphEdge+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54C9FD31DF6991E00AC4F4E /* GraphEdge+CoreDataClass.swift */; };
+		E54C9FD81DF6991E00AC4F4E /* GraphEdge+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54C9FD41DF6991E00AC4F4E /* GraphEdge+CoreDataProperties.swift */; };
+		E550E0AA1DD3169400DF2BA5 /* EGF2Graph+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E550E0A91DD3169400DF2BA5 /* EGF2Graph+CoreData.swift */; };
+		E550E0AC1DD31A1300DF2BA5 /* EGF2Graph+API.swift in Sources */ = {isa = PBXBuildFile; fileRef = E550E0AB1DD31A1300DF2BA5 /* EGF2Graph+API.swift */; };
+		E56752FE1DEEA6280092D64D /* EGF2.m in Sources */ = {isa = PBXBuildFile; fileRef = E56752FD1DEEA6280092D64D /* EGF2.m */; };
+		E5A398C31DD5A10D00609F50 /* Date+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A398C21DD5A10D00609F50 /* Date+Additions.swift */; };
+		E5C4E1EE1DCB2E92002DA97D /* EGF2.h in Headers */ = {isa = PBXBuildFile; fileRef = E5C4E1EC1DCB2E92002DA97D /* EGF2.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E5C4E1F81DCB2EB6002DA97D /* EGF2API.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C4E1F41DCB2EB6002DA97D /* EGF2API.swift */; };
+		E5C4E1FA1DCB2EB6002DA97D /* EGF2Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C4E1F71DCB2EB6002DA97D /* EGF2Graph.swift */; };
+		E5DB063F1DE8115900741C98 /* EGF2Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DB063E1DE8115900741C98 /* EGF2Error.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		E5210ABF1DD0733D00D9470C /* NSObject+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+Additions.swift"; sourceTree = "<group>"; };
+		E5210AC11DD0766500D9470C /* Data+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Data+Additions.swift"; sourceTree = "<group>"; };
+		E5210AC31DD0768600D9470C /* String+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Additions.swift"; sourceTree = "<group>"; };
+		E5210AC51DD087E600D9470C /* EGF2Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EGF2Types.swift; sourceTree = "<group>"; };
+		E5210AC71DD0897600D9470C /* EGF2GraphAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EGF2GraphAPI.swift; sourceTree = "<group>"; };
+		E5210AC91DD08A0500D9470C /* EGF2Keychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EGF2Keychain.swift; sourceTree = "<group>"; };
+		E5210ACB1DD090A100D9470C /* Dictionary+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Additions.swift"; sourceTree = "<group>"; };
+		E521578D1DE6F19D007FEC19 /* GraphEdgeObject+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GraphEdgeObject+CoreDataClass.swift"; sourceTree = "<group>"; };
+		E521578E1DE6F19D007FEC19 /* GraphEdgeObject+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GraphEdgeObject+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		E5215D7C1DD198DD00C11640 /* Graph.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Graph.xcdatamodel; sourceTree = "<group>"; };
+		E5215D8B1DD1D55800C11640 /* EGF2Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EGF2Account.swift; sourceTree = "<group>"; };
+		E5215D8D1DD1D63A00C11640 /* EGF2Directory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EGF2Directory.swift; sourceTree = "<group>"; };
+		E53F5EA31DDDAA9300E5801B /* strip.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = strip.sh; sourceTree = "<group>"; };
+		E54C7D971DED6D0B002B3327 /* EGF2Graph+Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EGF2Graph+Notifications.swift"; sourceTree = "<group>"; };
+		E54C9FD11DF6991E00AC4F4E /* GraphObject+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GraphObject+CoreDataClass.swift"; sourceTree = "<group>"; };
+		E54C9FD21DF6991E00AC4F4E /* GraphObject+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GraphObject+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		E54C9FD31DF6991E00AC4F4E /* GraphEdge+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GraphEdge+CoreDataClass.swift"; sourceTree = "<group>"; };
+		E54C9FD41DF6991E00AC4F4E /* GraphEdge+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GraphEdge+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		E550E0A91DD3169400DF2BA5 /* EGF2Graph+CoreData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EGF2Graph+CoreData.swift"; sourceTree = "<group>"; };
+		E550E0AB1DD31A1300DF2BA5 /* EGF2Graph+API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EGF2Graph+API.swift"; sourceTree = "<group>"; };
+		E56752FD1DEEA6280092D64D /* EGF2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGF2.m; sourceTree = "<group>"; };
+		E5A398C21DD5A10D00609F50 /* Date+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Additions.swift"; sourceTree = "<group>"; };
+		E5C4E1E91DCB2E92002DA97D /* EGF2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EGF2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E5C4E1EC1DCB2E92002DA97D /* EGF2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EGF2.h; sourceTree = "<group>"; };
+		E5C4E1ED1DCB2E92002DA97D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E5C4E1F41DCB2EB6002DA97D /* EGF2API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EGF2API.swift; sourceTree = "<group>"; };
+		E5C4E1F71DCB2EB6002DA97D /* EGF2Graph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EGF2Graph.swift; sourceTree = "<group>"; };
+		E5DB063E1DE8115900741C98 /* EGF2Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EGF2Error.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E5C4E1E51DCB2E92002DA97D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E5210ABE1DD0731F00D9470C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E5210AC11DD0766500D9470C /* Data+Additions.swift */,
+				E5A398C21DD5A10D00609F50 /* Date+Additions.swift */,
+				E5210AC31DD0768600D9470C /* String+Additions.swift */,
+				E5210ABF1DD0733D00D9470C /* NSObject+Additions.swift */,
+				E5210ACB1DD090A100D9470C /* Dictionary+Additions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		E5215D7A1DD198DD00C11640 /* GraphModel */ = {
+			isa = PBXGroup;
+			children = (
+				E5215D7B1DD198DD00C11640 /* Graph.xcdatamodeld */,
+				E54C9FD31DF6991E00AC4F4E /* GraphEdge+CoreDataClass.swift */,
+				E54C9FD41DF6991E00AC4F4E /* GraphEdge+CoreDataProperties.swift */,
+				E54C9FD11DF6991E00AC4F4E /* GraphObject+CoreDataClass.swift */,
+				E54C9FD21DF6991E00AC4F4E /* GraphObject+CoreDataProperties.swift */,
+				E521578D1DE6F19D007FEC19 /* GraphEdgeObject+CoreDataClass.swift */,
+				E521578E1DE6F19D007FEC19 /* GraphEdgeObject+CoreDataProperties.swift */,
+			);
+			path = GraphModel;
+			sourceTree = "<group>";
+		};
+		E5C4E1DF1DCB2E92002DA97D = {
+			isa = PBXGroup;
+			children = (
+				E5C4E1EB1DCB2E92002DA97D /* EGF2 */,
+				E5C4E1EA1DCB2E92002DA97D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E5C4E1EA1DCB2E92002DA97D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E5C4E1E91DCB2E92002DA97D /* EGF2.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E5C4E1EB1DCB2E92002DA97D /* EGF2 */ = {
+			isa = PBXGroup;
+			children = (
+				E5210AC51DD087E600D9470C /* EGF2Types.swift */,
+				E5C4E1F41DCB2EB6002DA97D /* EGF2API.swift */,
+				E5210AC71DD0897600D9470C /* EGF2GraphAPI.swift */,
+				E5210AC91DD08A0500D9470C /* EGF2Keychain.swift */,
+				E5215D8B1DD1D55800C11640 /* EGF2Account.swift */,
+				E5215D8D1DD1D63A00C11640 /* EGF2Directory.swift */,
+				E5DB063E1DE8115900741C98 /* EGF2Error.swift */,
+				E5210ABE1DD0731F00D9470C /* Extensions */,
+				E5C4E1F61DCB2EB6002DA97D /* Graph */,
+				E5C4E1FB1DCB2EC8002DA97D /* Supporting Files */,
+			);
+			path = EGF2;
+			sourceTree = "<group>";
+		};
+		E5C4E1F61DCB2EB6002DA97D /* Graph */ = {
+			isa = PBXGroup;
+			children = (
+				E5C4E1F71DCB2EB6002DA97D /* EGF2Graph.swift */,
+				E550E0AB1DD31A1300DF2BA5 /* EGF2Graph+API.swift */,
+				E550E0A91DD3169400DF2BA5 /* EGF2Graph+CoreData.swift */,
+				E54C7D971DED6D0B002B3327 /* EGF2Graph+Notifications.swift */,
+				E5215D7A1DD198DD00C11640 /* GraphModel */,
+			);
+			path = Graph;
+			sourceTree = "<group>";
+		};
+		E5C4E1FB1DCB2EC8002DA97D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E5C4E1EC1DCB2E92002DA97D /* EGF2.h */,
+				E56752FD1DEEA6280092D64D /* EGF2.m */,
+				E53F5EA31DDDAA9300E5801B /* strip.sh */,
+				E5C4E1ED1DCB2E92002DA97D /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		E5C4E1E61DCB2E92002DA97D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E5C4E1EE1DCB2E92002DA97D /* EGF2.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		E5C4E1E81DCB2E92002DA97D /* EGF2 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E5C4E1F11DCB2E92002DA97D /* Build configuration list for PBXNativeTarget "EGF2" */;
+			buildPhases = (
+				E5C4E1E41DCB2E92002DA97D /* Sources */,
+				E5C4E1E51DCB2E92002DA97D /* Frameworks */,
+				E5C4E1E61DCB2E92002DA97D /* Headers */,
+				E5C4E1E71DCB2E92002DA97D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = EGF2;
+			productName = EGF2;
+			productReference = E5C4E1E91DCB2E92002DA97D /* EGF2.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E5C4E1E01DCB2E92002DA97D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0810;
+				ORGANIZATIONNAME = EigenGraph;
+				TargetAttributes = {
+					E5C4E1E81DCB2E92002DA97D = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = 6Q854AZ8Q5;
+						LastSwiftMigration = 0800;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = E5C4E1E31DCB2E92002DA97D /* Build configuration list for PBXProject "EGF2" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = E5C4E1DF1DCB2E92002DA97D;
+			productRefGroup = E5C4E1EA1DCB2E92002DA97D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E5C4E1E81DCB2E92002DA97D /* EGF2 */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E5C4E1E71DCB2E92002DA97D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E53F5EA41DDDAA9300E5801B /* strip.sh in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E5C4E1E41DCB2E92002DA97D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E5210AC21DD0766500D9470C /* Data+Additions.swift in Sources */,
+				E54C7D981DED6D0B002B3327 /* EGF2Graph+Notifications.swift in Sources */,
+				E5210ACA1DD08A0500D9470C /* EGF2Keychain.swift in Sources */,
+				E5215D811DD198DD00C11640 /* Graph.xcdatamodeld in Sources */,
+				E52157901DE6F19D007FEC19 /* GraphEdgeObject+CoreDataProperties.swift in Sources */,
+				E5210AC61DD087E600D9470C /* EGF2Types.swift in Sources */,
+				E5C4E1FA1DCB2EB6002DA97D /* EGF2Graph.swift in Sources */,
+				E5210ACC1DD090A100D9470C /* Dictionary+Additions.swift in Sources */,
+				E54C9FD51DF6991E00AC4F4E /* GraphObject+CoreDataClass.swift in Sources */,
+				E5210AC81DD0897600D9470C /* EGF2GraphAPI.swift in Sources */,
+				E550E0AA1DD3169400DF2BA5 /* EGF2Graph+CoreData.swift in Sources */,
+				E521578F1DE6F19D007FEC19 /* GraphEdgeObject+CoreDataClass.swift in Sources */,
+				E5215D8E1DD1D63A00C11640 /* EGF2Directory.swift in Sources */,
+				E54C9FD71DF6991E00AC4F4E /* GraphEdge+CoreDataClass.swift in Sources */,
+				E54C9FD61DF6991E00AC4F4E /* GraphObject+CoreDataProperties.swift in Sources */,
+				E5C4E1F81DCB2EB6002DA97D /* EGF2API.swift in Sources */,
+				E5210AC01DD0733D00D9470C /* NSObject+Additions.swift in Sources */,
+				E5215D8C1DD1D55800C11640 /* EGF2Account.swift in Sources */,
+				E550E0AC1DD31A1300DF2BA5 /* EGF2Graph+API.swift in Sources */,
+				E54C9FD81DF6991E00AC4F4E /* GraphEdge+CoreDataProperties.swift in Sources */,
+				E5DB063F1DE8115900741C98 /* EGF2Error.swift in Sources */,
+				E56752FE1DEEA6280092D64D /* EGF2.m in Sources */,
+				E5210AC41DD0768600D9470C /* String+Additions.swift in Sources */,
+				E5A398C31DD5A10D00609F50 /* Date+Additions.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		E5C4E1EF1DCB2E92002DA97D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		E5C4E1F01DCB2E92002DA97D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		E5C4E1F21DCB2E92002DA97D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BITCODE_GENERATION_MODE = bitcode;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 6Q854AZ8Q5;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = EGF2/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.eigengraph.EGF2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_INCLUDE_PATHS = "${SRCROOT}/EGF2/CommonCrypto";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		E5C4E1F31DCB2E92002DA97D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BITCODE_GENERATION_MODE = bitcode;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 6Q854AZ8Q5;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = EGF2/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.eigengraph.EGF2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_INCLUDE_PATHS = "${SRCROOT}/EGF2/CommonCrypto";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E5C4E1E31DCB2E92002DA97D /* Build configuration list for PBXProject "EGF2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E5C4E1EF1DCB2E92002DA97D /* Debug */,
+				E5C4E1F01DCB2E92002DA97D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E5C4E1F11DCB2E92002DA97D /* Build configuration list for PBXNativeTarget "EGF2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E5C4E1F21DCB2E92002DA97D /* Debug */,
+				E5C4E1F31DCB2E92002DA97D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		E5215D7B1DD198DD00C11640 /* Graph.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E5215D7C1DD198DD00C11640 /* Graph.xcdatamodel */,
+			);
+			currentVersion = E5215D7C1DD198DD00C11640 /* Graph.xcdatamodel */;
+			path = Graph.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = E5C4E1E01DCB2E92002DA97D /* Project object */;
+}
