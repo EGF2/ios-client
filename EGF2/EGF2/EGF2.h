@@ -16,9 +16,9 @@ FOUNDATION_EXPORT const unsigned char EGF2VersionString[];
 
 // User info keys
 extern NSString * const EGF2EdgeInfoKey;
-extern NSString * const EGF2SourceInfoKey;
 extern NSString * const EGF2ObjectInfoKey;
-extern NSString * const EGF2EdgeObjectInfoKey;
+extern NSString * const EGF2ObjectIdInfoKey;
+extern NSString * const EGF2EdgeObjectIdInfoKey;
 extern NSString * const EGF2EdgeObjectsInfoKey;
 extern NSString * const EGF2EdgeObjectsCountInfoKey;
 

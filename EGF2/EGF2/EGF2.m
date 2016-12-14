@@ -1,9 +1,9 @@
 #import <EGF2.h>
 
 NSString *const EGF2EdgeInfoKey = @"EGF2EdgeInfoKey";
-NSString *const EGF2SourceInfoKey = @"EGF2SourceInfoKey";
 NSString *const EGF2ObjectInfoKey = @"EGF2ObjectInfoKey";
-NSString *const EGF2EdgeObjectInfoKey = @"EGF2EdgeObjectInfoKey";
+NSString *const EGF2ObjectIdInfoKey = @"EGF2ObjectIdInfoKey";
+NSString *const EGF2EdgeObjectIdInfoKey = @"EGF2EdgeObjectIdInfoKey";
 NSString *const EGF2EdgeObjectsInfoKey = @"EGF2EdgeObjectsInfoKey";
 NSString *const EGF2EdgeObjectsCountInfoKey = @"EGF2EdgeObjectsCountInfoKey";
 

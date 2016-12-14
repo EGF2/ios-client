@@ -616,7 +616,7 @@ public class EGF2Graph: NSObject {
                 completion?(nil, nil)
                 NotificationCenter.default.post(name: .EGF2ObjectDeleted,
                                                 object: self.notificationObject(forSource: id),
-                                                userInfo: [EGF2ObjectInfoKey: id])
+                                                userInfo: [EGF2ObjectIdInfoKey: id])
             }
         }
     }
@@ -633,20 +633,23 @@ public class EGF2Graph: NSObject {
                     completion?(nil, error)
                     return
                 }
+                guard let target = object?.value(forKey: "id") as? String else {
+                    completion?(nil, error)
+                    return
+                }
                 self.findGraphEdgeObjects(withSource: source, edge: edge) { (graphEdgeObjects) in
                     if let objects = graphEdgeObjects {
                         for i in 0..<objects.count {
                             objects[i].index = NSNumber(value: i + 1)
                         }
                     }
-                    if let target = object?.value(forKey: "id") as? String {
-                        _ = self.newGraphEdgeObject(withSource: source, edge: edge, target: target, index: 0)
-                    }
+                    _ = self.newGraphEdgeObject(withSource: source, edge: edge, target: target, index: 0)
+                    
                     completion?(object, nil)
                     NotificationCenter.default.post(name: .EGF2ObjectCreated, object: nil, userInfo: [EGF2ObjectInfoKey: object!])
                     NotificationCenter.default.post(name: .EGF2EdgeCreated,
                                                     object: self.notificationObject(forSource: source, andEdge: edge),
-                                                    userInfo: [EGF2SourceInfoKey: source, EGF2EdgeInfoKey: edge, EGF2EdgeObjectInfoKey: object!])
+                                                    userInfo: [EGF2ObjectIdInfoKey: source, EGF2EdgeInfoKey: edge, EGF2EdgeObjectIdInfoKey: target])
                 }
             }
         }
@@ -668,7 +671,7 @@ public class EGF2Graph: NSObject {
                 completion(nil, nil)
                 NotificationCenter.default.post(name: .EGF2EdgeCreated,
                                                 object: self.notificationObject(forSource: source, andEdge: edge),
-                                                userInfo: [EGF2SourceInfoKey: source, EGF2EdgeInfoKey: edge, EGF2EdgeObjectInfoKey: id])
+                                                userInfo: [EGF2ObjectIdInfoKey: source, EGF2EdgeInfoKey: edge, EGF2EdgeObjectIdInfoKey: id])
             }
         }
     }
@@ -691,7 +694,7 @@ public class EGF2Graph: NSObject {
                 completion(nil, nil)
                 NotificationCenter.default.post(name: .EGF2EdgeRemoved,
                                                 object: self.notificationObject(forSource: source, andEdge: edge),
-                                                userInfo: [EGF2SourceInfoKey: source, EGF2EdgeInfoKey: edge, EGF2EdgeObjectInfoKey: id])
+                                                userInfo: [EGF2ObjectIdInfoKey: source, EGF2EdgeInfoKey: edge, EGF2EdgeObjectIdInfoKey: id])
             }
         }
     }
@@ -894,7 +897,7 @@ public class EGF2Graph: NSObject {
                     completion?(objects, count, nil)
                     let object = self.notificationObject(forSource: source, andEdge: edge)
                     let userInfo: [String: Any] = [
-                        EGF2SourceInfoKey: source,
+                        EGF2ObjectIdInfoKey: source,
                         EGF2EdgeInfoKey: edge,
                         EGF2EdgeObjectsInfoKey: objects!,
                         EGF2EdgeObjectsCountInfoKey: count
