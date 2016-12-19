@@ -645,11 +645,17 @@ public class EGF2Graph: NSObject {
                     }
                     _ = self.newGraphEdgeObject(withSource: source, edge: edge, target: target, index: 0)
                     
-                    completion?(object, nil)
-                    NotificationCenter.default.post(name: .EGF2ObjectCreated, object: nil, userInfo: [EGF2ObjectInfoKey: object!])
-                    NotificationCenter.default.post(name: .EGF2EdgeCreated,
-                                                    object: self.notificationObject(forSource: source, andEdge: edge),
-                                                    userInfo: [EGF2ObjectIdInfoKey: source, EGF2EdgeInfoKey: edge, EGF2EdgeObjectIdInfoKey: target])
+                    self.graphEdge(withSource: source, edge: edge) { (graphEdge) in
+                        if let theGraphEdge = graphEdge {
+                            let count = theGraphEdge.count?.intValue ?? 0
+                            theGraphEdge.count = NSNumber(value: count + 1)
+                        }
+                        completion?(object, nil)
+                        NotificationCenter.default.post(name: .EGF2ObjectCreated, object: nil, userInfo: [EGF2ObjectInfoKey: object!])
+                        NotificationCenter.default.post(name: .EGF2EdgeCreated,
+                                                        object: self.notificationObject(forSource: source, andEdge: edge),
+                                                        userInfo: [EGF2ObjectIdInfoKey: source, EGF2EdgeInfoKey: edge, EGF2EdgeObjectIdInfoKey: target])
+                    }
                 }
             }
         }
@@ -668,10 +674,17 @@ public class EGF2Graph: NSObject {
                     }
                 }
                 _ = self.newGraphEdgeObject(withSource: source, edge: edge, target: id, index: 0)
-                completion(nil, nil)
-                NotificationCenter.default.post(name: .EGF2EdgeCreated,
-                                                object: self.notificationObject(forSource: source, andEdge: edge),
-                                                userInfo: [EGF2ObjectIdInfoKey: source, EGF2EdgeInfoKey: edge, EGF2EdgeObjectIdInfoKey: id])
+                
+                self.graphEdge(withSource: source, edge: edge) { (graphEdge) in
+                    if let theGraphEdge = graphEdge {
+                        let count = theGraphEdge.count?.intValue ?? 0
+                        theGraphEdge.count = NSNumber(value: count + 1)
+                    }
+                    completion(nil, nil)
+                    NotificationCenter.default.post(name: .EGF2EdgeCreated,
+                                                    object: self.notificationObject(forSource: source, andEdge: edge),
+                                                    userInfo: [EGF2ObjectIdInfoKey: source, EGF2EdgeInfoKey: edge, EGF2EdgeObjectIdInfoKey: id])
+                }
             }
         }
     }
@@ -691,10 +704,15 @@ public class EGF2Graph: NSObject {
                     }
                     self.container.viewContext.delete(graphEdgeObject)
                 }
-                completion(nil, nil)
-                NotificationCenter.default.post(name: .EGF2EdgeRemoved,
-                                                object: self.notificationObject(forSource: source, andEdge: edge),
-                                                userInfo: [EGF2ObjectIdInfoKey: source, EGF2EdgeInfoKey: edge, EGF2EdgeObjectIdInfoKey: id])
+                self.findGraphEdge(withSource: source, edge: edge) { (graphEdge) in
+                    if let theGraphEdge = graphEdge, let count = theGraphEdge.count?.intValue {
+                        theGraphEdge.count = NSNumber(value: max(count - 1, 0))
+                    }
+                    completion(nil, nil)
+                    NotificationCenter.default.post(name: .EGF2EdgeRemoved,
+                                                    object: self.notificationObject(forSource: source, andEdge: edge),
+                                                    userInfo: [EGF2ObjectIdInfoKey: source, EGF2EdgeInfoKey: edge, EGF2EdgeObjectIdInfoKey: id])
+                }
             }
         }
     }

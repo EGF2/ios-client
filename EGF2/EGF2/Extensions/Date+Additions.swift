@@ -18,6 +18,12 @@ extension Date {
             components.removeLast()
             components.append("Z")
         }
-        return components.joined()
+        var result = components.joined()
+        
+        // Server can't create a vaild date from string '1970-01-01T00:00:00.000Z'
+        if result == "1970-01-01T00:00:00.000Z" {
+            result = "1970-01-01T00:00:00.001Z"
+        }
+        return result
     }
 }
