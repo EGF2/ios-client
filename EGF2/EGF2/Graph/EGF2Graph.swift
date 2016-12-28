@@ -541,8 +541,8 @@ public class EGF2Graph: NSObject {
                 return
             }
             self.object(withResponse: response) { (result, error) in
-                if let object = result {
-                    NotificationCenter.default.post(name: .EGF2ObjectCreated, object: nil, userInfo: [EGF2ObjectInfoKey: object])
+                if let object = result, let id = object.value(forKey: "id") as? String {
+                    NotificationCenter.default.post(name: .EGF2ObjectCreated, object: nil, userInfo: [EGF2ObjectIdInfoKey: id])
                 }
                 completion?(result, error)
             }
@@ -580,7 +580,7 @@ public class EGF2Graph: NSObject {
                 completion?(updatedObject, nil)
                 NotificationCenter.default.post(name: .EGF2ObjectUpdated,
                                                 object: self.notificationObject(forSource: id),
-                                                userInfo: [EGF2ObjectInfoKey: updatedObject])
+                                                userInfo: [EGF2ObjectIdInfoKey: id])
             }
         }
     }
@@ -651,7 +651,7 @@ public class EGF2Graph: NSObject {
                             theGraphEdge.count = NSNumber(value: count + 1)
                         }
                         completion?(object, nil)
-                        NotificationCenter.default.post(name: .EGF2ObjectCreated, object: nil, userInfo: [EGF2ObjectInfoKey: object!])
+                        NotificationCenter.default.post(name: .EGF2ObjectCreated, object: nil, userInfo: [EGF2ObjectIdInfoKey: target])
                         NotificationCenter.default.post(name: .EGF2EdgeCreated,
                                                         object: self.notificationObject(forSource: source, andEdge: edge),
                                                         userInfo: [EGF2ObjectIdInfoKey: source, EGF2EdgeInfoKey: edge, EGF2EdgeObjectIdInfoKey: target])
