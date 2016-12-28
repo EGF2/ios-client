@@ -481,9 +481,6 @@ public class EGF2Graph: NSObject {
             if let theGraphObject = graphObject {
                 self.tryLoad(graphObject: theGraphObject, withExpand: self.expandValues(byStrings: expand)) { (object) in
                     if let theObject = object {
-                        if self.showCacheLogs {
-                            print("EGF2Graph. Getting object with id '\(id)' from cache")
-                        }
                         completion?(theObject, nil)
                     }
                     else {
@@ -781,9 +778,6 @@ public class EGF2Graph: NSObject {
                         
                         if firstIndex == theGraphEdgeObjects.count {
                             if theGraphEdgeObjects.count == theGraphEdgeCount {
-                                if self.showCacheLogs {
-                                    print("EGF2Graph. Getting objects for source = '\(source)' from edge = '\(edge)' from cache")
-                                }
                                 completion?([], theGraphEdgeCount, nil)
                             }
                             else {
@@ -813,9 +807,6 @@ public class EGF2Graph: NSObject {
                     if let theGraphObjects = graphObjects {
                         self.tryLoad(objects: [], byGraphObjects: theGraphObjects, index: 0, expand: self.expandValues(byStrings: expand)) { (edgeObjects) in
                             if let theEdgeObjects = edgeObjects {
-                                if self.showCacheLogs {
-                                    print("EGF2Graph. Getting objects for source = '\(source)' from edge = '\(edge)' from cache")
-                                }
                                 completion?(theEdgeObjects, theGraphEdgeCount, nil)
                             }
                             else {
