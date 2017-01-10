@@ -32,6 +32,10 @@ class EGF2GraphAPI: EGF2API {
         execute(withLocalURL: "verify_email", method: .get, parameters: ["token":token], completion: completion)
     }
     
+    func resendEmailVerification(withCompletion completion: @escaping Completion) {
+        execute(withLocalURL: "resend_email_verification", method: .post, parameters: nil, completion:  completion)
+    }
+    
     func change(oldPassword: String, withNewPassword newPassword: String, completion: @escaping Completion) {
         let parameters = ["old_password":oldPassword, "new_password":newPassword]
         execute(withLocalURL: "change_password", method: .post, parameters: parameters, completion: completion)

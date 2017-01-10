@@ -129,6 +129,10 @@ extension EGF2Graph {
         api.verifyEmail(withToken: token, completion: completion)
     }
     
+    public func resendEmailVerification(withCompletion completion: @escaping Completion) {
+        api.resendEmailVerification(withCompletion: completion)
+    }
+    
     // MARK: Graph operations
     public func search(forObject object: String, after: Int, count: Int, expand: [String]? = nil, fields: [String]? = nil, filters: [String: Any]? = nil, range: [String: Any]? = nil, sort: [String]? = nil, query: String? = nil, completion: @escaping ObjectsBlock) {
         api.search(forObject: object, after: after, count: count, expand: expand, fields: fields, filters: filters, range: range, sort: sort, query: query) { (response, error) in

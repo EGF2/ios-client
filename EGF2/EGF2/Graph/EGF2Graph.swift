@@ -658,10 +658,10 @@ public class EGF2Graph: NSObject {
         }
     }
     
-    public func addObject(withId id: String, forSource source: String, toEdge edge: String, completion: @escaping Completion) {
+    public func addObject(withId id: String, forSource source: String, toEdge edge: String, completion: Completion?) {
         api.addObject(withId: id, forSource: source, onEdge: edge) { (response, error) in
             if let _ = error {
-                completion(nil, error)
+                completion?(nil, error)
                 return
             }
             self.findGraphEdgeObjects(withSource: source, edge: edge) { (graphEdgeObjects) in
@@ -677,7 +677,7 @@ public class EGF2Graph: NSObject {
                         let count = theGraphEdge.count?.intValue ?? 0
                         theGraphEdge.count = NSNumber(value: count + 1)
                     }
-                    completion(nil, nil)
+                    completion?(nil, nil)
                     NotificationCenter.default.post(name: .EGF2EdgeCreated,
                                                     object: self.notificationObject(forSource: source, andEdge: edge),
                                                     userInfo: [EGF2ObjectIdInfoKey: source, EGF2EdgeInfoKey: edge, EGF2EdgeObjectIdInfoKey: id])
@@ -686,10 +686,10 @@ public class EGF2Graph: NSObject {
         }
     }
     
-    public func deleteObject(withId id: String, forSource source: String, fromEdge edge: String, completion: @escaping Completion) {
+    public func deleteObject(withId id: String, forSource source: String, fromEdge edge: String, completion: Completion?) {
         api.deleteObject(withId: id, forSource: source, fromEdge: edge) { (response, error) in
             if let _ = error {
-                completion(nil, error)
+                completion?(nil, error)
                 return
             }
             self.findGraphEdgeObjects(withSource: source, edge: edge) { (graphEdgeObjects) in
@@ -705,7 +705,7 @@ public class EGF2Graph: NSObject {
                     if let theGraphEdge = graphEdge, let count = theGraphEdge.count?.intValue {
                         theGraphEdge.count = NSNumber(value: max(count - 1, 0))
                     }
-                    completion(nil, nil)
+                    completion?(nil, nil)
                     NotificationCenter.default.post(name: .EGF2EdgeRemoved,
                                                     object: self.notificationObject(forSource: source, andEdge: edge),
                                                     userInfo: [EGF2ObjectIdInfoKey: source, EGF2EdgeInfoKey: edge, EGF2EdgeObjectIdInfoKey: id])
