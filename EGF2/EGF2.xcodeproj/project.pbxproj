@@ -33,6 +33,7 @@
 		E5C4E1F81DCB2EB6002DA97D /* EGF2API.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C4E1F41DCB2EB6002DA97D /* EGF2API.swift */; };
 		E5C4E1FA1DCB2EB6002DA97D /* EGF2Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C4E1F71DCB2EB6002DA97D /* EGF2Graph.swift */; };
 		E5DB063F1DE8115900741C98 /* EGF2Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DB063E1DE8115900741C98 /* EGF2Error.swift */; };
+		E5F2815B1E275FD7009F072C /* Array+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F2815A1E275FD7009F072C /* Array+Additions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +65,7 @@
 		E5C4E1F41DCB2EB6002DA97D /* EGF2API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EGF2API.swift; sourceTree = "<group>"; };
 		E5C4E1F71DCB2EB6002DA97D /* EGF2Graph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EGF2Graph.swift; sourceTree = "<group>"; };
 		E5DB063E1DE8115900741C98 /* EGF2Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EGF2Error.swift; sourceTree = "<group>"; };
+		E5F2815A1E275FD7009F072C /* Array+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Additions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 			children = (
 				E5210AC11DD0766500D9470C /* Data+Additions.swift */,
 				E5A398C21DD5A10D00609F50 /* Date+Additions.swift */,
+				E5F2815A1E275FD7009F072C /* Array+Additions.swift */,
 				E5210AC31DD0768600D9470C /* String+Additions.swift */,
 				E5210ABF1DD0733D00D9470C /* NSObject+Additions.swift */,
 				E5210ACB1DD090A100D9470C /* Dictionary+Additions.swift */,
@@ -257,6 +260,7 @@
 				E54C9FD71DF6991E00AC4F4E /* GraphEdge+CoreDataClass.swift in Sources */,
 				E54C9FD61DF6991E00AC4F4E /* GraphObject+CoreDataProperties.swift in Sources */,
 				E5C4E1F81DCB2EB6002DA97D /* EGF2API.swift in Sources */,
+				E5F2815B1E275FD7009F072C /* Array+Additions.swift in Sources */,
 				E5210AC01DD0733D00D9470C /* NSObject+Additions.swift in Sources */,
 				E5215D8C1DD1D55800C11640 /* EGF2Account.swift in Sources */,
 				E550E0AC1DD31A1300DF2BA5 /* EGF2Graph+API.swift in Sources */,

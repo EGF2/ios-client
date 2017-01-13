@@ -89,7 +89,7 @@ static NSMutableArray * createdClasses = nil;
     EGF2Name = [Utils stringForKey:@"name" inDictionary:dictionary];
     EGF2Server = [Utils stringForKey:@"server" inDictionary:dictionary];
     EGF2ExcludedModels = [Utils arrayForKey:@"excluded_models" inDictionary:dictionary];
-    EGF2ModelPreffix = [Utils stringForKey:@"model_preffix" inDictionary:dictionary];
+    EGF2ModelPreffix = [Utils stringForKey:@"model_prefix" inDictionary:dictionary];
     
     if (EGF2Name == nil || EGF2Server == nil || EGF2ExcludedModels == nil || EGF2ModelPreffix == nil) {
         ExitWithMessage(@"Settings file is not valid");
