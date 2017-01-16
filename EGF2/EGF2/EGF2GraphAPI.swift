@@ -101,14 +101,14 @@ class EGF2GraphAPI: EGF2API {
         execute(withLocalURL: "graph/\(source)/\(edge)", method: .post, parameters: parameters, completion: completion)
     }
 
-    func search(forObject object: String, after: Int, count: Int, expand: [String]? = nil, fields: [String]? = nil, filters: [String: Any]? = nil, range: [String: Any]? = nil, sort: [String]? = nil, query: String? = nil, completion: @escaping Completion) {
+    func search(forObject object: String, count: Int, after: String?, expand: [String]? = nil, fields: [String]? = nil, filters: [String: Any]? = nil, range: [String: Any]? = nil, sort: [String]? = nil, query: String? = nil, completion: @escaping Completion) {
         var parameters: [String: Any] = ["object": object]
 
-        if after >= 0 {
-            parameters["after"] = after
-        }
         if count >= 0 {
             parameters["count"] = count
+        }
+        if let value = after {
+            parameters["after"] = value
         }
         if let value = expand {
             parameters["expand"] = value.joined(separator: ",")

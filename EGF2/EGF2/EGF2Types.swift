@@ -10,6 +10,7 @@ import Foundation
 
 public typealias ObjectBlock = (_ object: NSObject?, _ error: NSError?) -> Void
 public typealias ObjectsBlock = (_ objects: [NSObject]?, _ count: Int, _ error: NSError?) -> Void
+public typealias SearchObjectsBlock = (_ objects: [NSObject]?, _ count: Int, _ last: String?, _ error: NSError?) -> Void
 public typealias Completion = (_ result: Any?, _ error: NSError?) -> Void
 
 extension NSNotification.Name {

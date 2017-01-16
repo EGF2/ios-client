@@ -132,36 +132,36 @@ extension EGF2Graph {
     }
 
     // MARK: Graph operations
-    public func search(forObject object: String, after: Int, count: Int, expand: [String]? = nil, fields: [String]? = nil, filters: [String: Any]? = nil, range: [String: Any]? = nil, sort: [String]? = nil, query: String? = nil, completion: @escaping ObjectsBlock) {
-        api.search(forObject: object, after: after, count: count, expand: expand, fields: fields, filters: filters, range: range, sort: sort, query: query) { (response, error) in
+    public func search(forObject object: String, count: Int, after: String?, expand: [String]? = nil, fields: [String]? = nil, filters: [String: Any]? = nil, range: [String: Any]? = nil, sort: [String]? = nil, query: String? = nil, completion: @escaping SearchObjectsBlock) {
+        api.search(forObject: object, count: count, after: after, expand: expand, fields: fields, filters: filters, range: range, sort: sort, query: query) { (response, error) in
             if let _ = error {
-                completion(nil, 0, error)
+                completion(nil, 0, nil, error)
                 return
             }
             guard let dictionary = response as? [String: Any],
                 let dictionaries = dictionary["results"] as? [[String: Any]],
                 let count = dictionary["count"] as? Int else {
-                    completion(nil, 0, EGF2Error(code: .wrongResponse))
+                    completion(nil, 0, nil, EGF2Error(code: .wrongResponse))
                     return
             }
             var objects = [NSObject]()
 
             for value in dictionaries {
                 guard let id = value["id"] as? String else {
-                    completion(nil, 0, EGF2Error(code: .wrongJSONObject))
+                    completion(nil, 0, nil, EGF2Error(code: .wrongJSONObject))
                     return
                 }
                 guard let type = self.objectType(byId: id) else {
-                    completion(nil, 0, EGF2Error(code: .unknownObjectType, reason: "Unknown type for object with id: \(id)"))
+                    completion(nil, 0, nil, EGF2Error(code: .unknownObjectType, reason: "Unknown type for object with id: \(id)"))
                     return
                 }
                 objects.append(self.objectWith(type: type, dictionary: self.fixedDictionary(value)))
             }
-            completion(objects, count, nil)
+            completion(objects, count, dictionary["last"] as? String, nil)
         }
     }
 
-    public func search(withParameters parameters: EGF2SearchParameters, after: Int, count: Int, completion: @escaping ObjectsBlock) {
-        search(forObject: parameters.object, after: after, count: count, expand: parameters.expand, fields: parameters.fields, filters: parameters.filters, range: parameters.range, sort: parameters.sort, query: parameters.query, completion: completion)
+    public func search(withParameters parameters: EGF2SearchParameters, count: Int, after: String?, completion: @escaping SearchObjectsBlock) {
+        search(forObject: parameters.object, count: count, after: after, expand: parameters.expand, fields: parameters.fields, filters: parameters.filters, range: parameters.range, sort: parameters.sort, query: parameters.query, completion: completion)
     }
 }
