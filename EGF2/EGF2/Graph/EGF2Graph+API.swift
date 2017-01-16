@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 public class EGF2SearchParameters: NSObject {
     public var object: String
     public var expand: [String]?
@@ -17,19 +16,19 @@ public class EGF2SearchParameters: NSObject {
     public var range: [String: Any]?
     public var sort: [String]?
     public var query: String?
-    
+
     public static func parameters(withObject object: String) -> EGF2SearchParameters {
         return EGF2SearchParameters(withObject: object)
     }
-    
+
     public init(withObject object: String) {
         self.object = object
     }
 }
 
 extension EGF2Graph {
-    
-    // MARK:- Fileprivate
+
+    // MARK: - Fileprivate
     fileprivate func tryToObtainToken(withResponse responseObject: Any?, completion: Completion) {
         if let response = responseObject as? [String: String], let token = response["token"], let type = response["type"] {
             let value = "\(type) \(token)"
@@ -37,8 +36,7 @@ extension EGF2Graph {
             self.account.userToken = value
             self.account.save()
             completion(true, nil)
-        }
-        else {
+        } else {
             completion(false, EGF2Error(code: .wrongResponse))
         }
     }
@@ -47,7 +45,7 @@ extension EGF2Graph {
     func jsonKeyToObjectKey(_ jsonKey: String) -> String {
         var objectKey = jsonKey
         var range = objectKey.range(of: "_")
-        
+
         while let r = range {
             if r.upperBound == jsonKey.endIndex {
                 return jsonKey
@@ -64,16 +62,16 @@ extension EGF2Graph {
         }
         return objectKey
     }
-    
+
     func fixedDictionary(_ jsonDictionary: [String: Any]) -> [String: Any] {
         var newDictionary = [String: Any]()
-        
+
         for (key, value) in jsonDictionary {
             newDictionary[jsonKeyToObjectKey(key)] = value
         }
         return newDictionary
     }
-    
+
     func objectType(byId id: String) -> NSObject.Type? {
         if let suffix = id.components(separatedBy: "-").last, suffix.characters.count == 2 {
             return idsWithModelTypes[suffix]
@@ -81,7 +79,7 @@ extension EGF2Graph {
         return nil
     }
 
-    // MARK:- Public
+    // MARK: - Public
     // MARK: Auth operations
     public func register(withFirstName firstName: String, lastName: String, email: String, dateOfBirth: Date, password: String, completion: @escaping Completion) {
         api.register(withFirstName: firstName, lastName: lastName, email: email, dateOfBirth: dateOfBirth, password: password) { (response, error) in
@@ -92,7 +90,7 @@ extension EGF2Graph {
             completion(nil, error)
         }
     }
-    
+
     public func login(withEmail email: String, password: String, completion: @escaping Completion) {
         api.login(withEmail: email, password: password) { (response, error) in
             guard let _ = error else {
@@ -102,7 +100,7 @@ extension EGF2Graph {
             completion(nil, error)
         }
     }
-    
+
     public func logout(withCompletion completion: @escaping Completion) {
         api.logout { (_, error) in
             self.api.authorization = nil
@@ -112,27 +110,27 @@ extension EGF2Graph {
             completion(nil, error)
         }
     }
-    
+
     public func change(oldPassword: String, withNewPassword newPassword: String, completion: @escaping Completion) {
         api.change(oldPassword: oldPassword, withNewPassword: newPassword, completion: completion)
     }
-    
+
     public func restorePassword(withEmail email: String, completion: @escaping Completion) {
         api.restorePassword(withEmail: email, completion: completion)
     }
-    
+
     public func resetPassword(withToken token: String, newPassword: String, completion: @escaping Completion) {
         api.resetPassword(withToken: token, newPassword: newPassword, completion: completion)
     }
-    
+
     public func verifyEmail(withToken token: String, completion: @escaping Completion) {
         api.verifyEmail(withToken: token, completion: completion)
     }
-    
+
     public func resendEmailVerification(withCompletion completion: @escaping Completion) {
         api.resendEmailVerification(withCompletion: completion)
     }
-    
+
     // MARK: Graph operations
     public func search(forObject object: String, after: Int, count: Int, expand: [String]? = nil, fields: [String]? = nil, filters: [String: Any]? = nil, range: [String: Any]? = nil, sort: [String]? = nil, query: String? = nil, completion: @escaping ObjectsBlock) {
         api.search(forObject: object, after: after, count: count, expand: expand, fields: fields, filters: filters, range: range, sort: sort, query: query) { (response, error) in
@@ -147,7 +145,7 @@ extension EGF2Graph {
                     return
             }
             var objects = [NSObject]()
-            
+
             for value in dictionaries {
                 guard let id = value["id"] as? String else {
                     completion(nil, 0, EGF2Error(code: .wrongJSONObject))
@@ -162,7 +160,7 @@ extension EGF2Graph {
             completion(objects, count, nil)
         }
     }
-    
+
     public func search(withParameters parameters: EGF2SearchParameters, after: Int, count: Int, completion: @escaping ObjectsBlock) {
         search(forObject: parameters.object, after: after, count: count, expand: parameters.expand, fields: parameters.fields, filters: parameters.filters, range: parameters.range, sort: parameters.sort, query: parameters.query, completion: completion)
     }

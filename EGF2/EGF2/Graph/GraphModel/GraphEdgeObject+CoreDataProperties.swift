@@ -9,11 +9,10 @@
 import Foundation
 import CoreData
 
-
 extension GraphEdgeObject {
 
     @nonobjc class func fetchRequest() -> NSFetchRequest<GraphEdgeObject> {
-        return NSFetchRequest<GraphEdgeObject>(entityName: "GraphEdgeObject");
+        return NSFetchRequest<GraphEdgeObject>(entityName: "GraphEdgeObject")
     }
 
     @NSManaged var edge: String?

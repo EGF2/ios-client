@@ -9,11 +9,10 @@
 import Foundation
 import CoreData
 
-
 extension GraphObject {
 
     @nonobjc class func fetchRequest() -> NSFetchRequest<GraphObject> {
-        return NSFetchRequest<GraphObject>(entityName: "GraphObject");
+        return NSFetchRequest<GraphObject>(entityName: "GraphObject")
     }
 
     @NSManaged var data: NSObject?

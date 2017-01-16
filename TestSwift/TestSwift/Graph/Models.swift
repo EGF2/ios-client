@@ -13,7 +13,7 @@ class BaseObject: NSObject {
     var createdAt: Date?
     var deletedAt: Date?
     var modifiedAt: Date?
-    
+
     func requiredFields() -> [String] {
         return [
             "modifiedAt",
@@ -27,7 +27,7 @@ class UserName: NSObject {
     var family: String?
     var given: String?
     var use: String?
-    
+
     func requiredFields() -> [String] {
         return [
             "use",
@@ -49,13 +49,13 @@ class User: BaseObject {
     var email: String?
     var name: UserName?
     var addresses = [Address]()
-    
+
     func editableFields() -> [String] {
         return [
             "name"
         ]
     }
-    
+
     override func requiredFields() -> [String] {
         return super.requiredFields() + [
             "name",
@@ -84,7 +84,7 @@ class File: BaseObject {
     var hosted: Bool = false
     var uploaded: Bool = false
     var resizes = [Resize]()
-    
+
     override func requiredFields() -> [String] {
         return super.requiredFields() + [
             "url",
@@ -121,7 +121,6 @@ class Collection: BaseObject {
     var coverImageObject: File?
 }
 
-
 class Message: BaseObject {
     var from: String?
     var fromObject: User?
@@ -130,4 +129,3 @@ class Message: BaseObject {
     var subject: String?
     var text: String?
 }
-

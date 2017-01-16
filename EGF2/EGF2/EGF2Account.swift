@@ -10,31 +10,31 @@ import Foundation
 
 class EGF2Account {
     fileprivate let name: String
-    
+
     var userId: String?
     var userToken: String?
-    
+
     init?(name: String) {
         self.name = name
         self.load()
     }
-    
+
     fileprivate var userIdKey: String {
         return name + "user_id"
     }
-    
+
     fileprivate var userTokenKey: String {
         return name + "user_token"
     }
-    
+
     fileprivate var fileTokenKey: String {
         return name + "file_token"
     }
-    
+
     fileprivate var accountFileURL: URL {
         return EGF2Directory.main.documentsURL.appendingPathComponent("\(name)_account_data")
     }
-    
+
     fileprivate func load() {
         // If there is no data on the disk we must clear keychain data
         guard let data = try? Data(contentsOf: accountFileURL) else {
@@ -56,10 +56,10 @@ class EGF2Account {
         userToken = EGF2Keychain.main.value(forKey: userTokenKey)
         userId = EGF2Keychain.main.value(forKey: userIdKey)
     }
-    
+
     func save() {
         guard let token = userToken else { return }
-        
+
         // Create file token if needed
         if EGF2Keychain.main.value(forKey: fileTokenKey) == nil {
             let newFileToken = UUID().uuidString
@@ -68,8 +68,7 @@ class EGF2Account {
                 try newFileToken.data(using: .utf8)?.write(to: accountFileURL)
                 EGF2Directory.main.setSkipBackupAttributeForItem(atURL: accountFileURL)
                 EGF2Keychain.main.set(value: newFileToken, forKey: fileTokenKey)
-            }
-            catch {
+            } catch {
                 print("EGF2Account error. Can't save account data.")
             }
         }
@@ -78,7 +77,7 @@ class EGF2Account {
         }
         EGF2Keychain.main.set(value: token, forKey: userTokenKey)
     }
-    
+
     func reset() {
         userId = nil
         userToken = nil

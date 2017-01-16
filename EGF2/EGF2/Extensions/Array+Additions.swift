@@ -9,7 +9,7 @@
 import Foundation
 
 extension Array where Element : Equatable {
-    
+
     mutating func remove(_ object: Element) {
         for i in 0..<count {
             if object == self[i] {

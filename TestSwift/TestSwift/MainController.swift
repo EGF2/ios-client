@@ -9,7 +9,7 @@
 import UIKit
 
 class MainController: UIViewController {
-    
+
     @IBAction func logout(_ sender: AnyObject) {
         Graph.logout { (_, error) in
             if error == nil {
@@ -19,10 +19,10 @@ class MainController: UIViewController {
             }
         }
     }
-    
+
     override func viewDidDisappear(_ animated: Bool) {
         guard let controller = self.navigationController as? InitController else { return }
-        
+
         if !Graph.isAuthorized {
             controller.viewControllers = []
         }

@@ -9,16 +9,15 @@
 import Foundation
 
 extension Data {
-    
+
     init?(jsonObject: Any) {
         if let data = try? JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted) {
             self = data
-        }
-        else {
+        } else {
             return nil
         }
     }
-    
+
     func jsonObject() -> Any? {
         return try? JSONSerialization.jsonObject(with: self, options: .mutableContainers)
     }

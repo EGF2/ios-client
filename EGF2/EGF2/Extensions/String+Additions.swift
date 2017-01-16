@@ -23,7 +23,7 @@ extension String {
         }
         return self
     }
-    
+
     func toRFC3339Date() -> Date? {
         return dateFormatterRFC3339.date(from: self.uppercased().replacingOccurrences(of: "Z", with: "-0000"))
     }

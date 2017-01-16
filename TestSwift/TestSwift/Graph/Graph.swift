@@ -9,7 +9,6 @@
 import Foundation
 import EGF2
 
-
 var Graph: EGF2Graph = {
     let graph = EGF2Graph(name: "EGF2")!
     graph.serverURL = URL(string: "http://guide.eigengraph.com/v1/")

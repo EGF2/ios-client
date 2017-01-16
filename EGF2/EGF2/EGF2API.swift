@@ -24,23 +24,23 @@ class EGF2API {
             }
         }
     }
-    
+
     fileprivate lazy var session: URLSession = {
         let configuration = URLSessionConfiguration.default
         configuration.urlCache = nil
         configuration.httpCookieStorage = nil
         return URLSession(configuration: configuration)
     }()
-    
+
     fileprivate func string(byParameters parameters: [String: Any]) -> String {
         return parameters
-            .map{"\($0)=\($1)&"}
+            .map {"\($0)=\($1)&"}
             .joined(separator: "")
             .withoutLastCharacter()
     }
-    
+
     func execute(withLocalURL localURL: String, method: HTTPMethod, parameters: [String: Any]?, completion: Completion?) {
-        
+
         guard let url = serverURL, let urlComponents = NSURLComponents(string: url.absoluteString + localURL) else {
             print("Error in EGF2API. serverURL must be set.")
             completion?(false, nil)
@@ -59,7 +59,7 @@ class EGF2API {
         let request = NSMutableURLRequest(url: fullURL)
         request.httpMethod = method.rawValue
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
+
         if let value = authorization {
             request.setValue(value, forHTTPHeaderField: "Authorization")
         }
@@ -71,27 +71,24 @@ class EGF2API {
         }
         execute(withRequest: request as URLRequest, completion: completion)
     }
-    
+
     func execute(withRequest request: URLRequest, completion: Completion?) {
-        
+
         session.dataTask(with: request) { (aData, aResponse, aError) in
             var result: [String: Any]? = nil
             var error: NSError? = nil
-            
+
             if let value = aError {
                 error = value as NSError?
-            }
-            else if let response = aResponse as? HTTPURLResponse, let data = aData {
+            } else if let response = aResponse as? HTTPURLResponse, let data = aData {
                 if response.statusCode == 200 || response.statusCode == 204 {
                     result = data.jsonObject() as? [String: Any]
-                }
-                else {
+                } else {
                     var userInfo: [String: Any] = ["status_code": response.statusCode]
-                    
+
                     if let dictionary = data.jsonObject() as? [String: Any], let message = dictionary["message"] as? String {
                         userInfo[NSLocalizedFailureReasonErrorKey] = message
-                    }
-                    else {
+                    } else {
                         userInfo[NSLocalizedFailureReasonErrorKey] = "Unknown error"
                     }
                     error = EGF2Error(code: .serverError, userInfo: userInfo)

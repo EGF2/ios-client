@@ -9,7 +9,7 @@
 import UIKit
 
 class InitController: UINavigationController {
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -19,10 +19,10 @@ class InitController: UINavigationController {
             }
         }
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+
         if !Graph.isAuthorized {
             self.performSegue(withIdentifier: "ShowLoginScreen", sender: nil)
         }

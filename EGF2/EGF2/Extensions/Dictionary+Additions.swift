@@ -9,10 +9,10 @@
 import Foundation
 
 extension Dictionary {
-    
+
     func joined(separator: String = ":") -> String {
         var result = ""
-        
+
         for (key, value) in self {
             result += "\(key)\(separator)\(value),"
         }

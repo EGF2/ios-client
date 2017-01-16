@@ -20,17 +20,17 @@ class EGF2Keychain {
         ]
         return initDictionary + extraDictionary
     }
-    
+
     fileprivate func checkStatus(status: OSStatus) -> Bool {
         if status == -34018 {
             print("EGF2Keychain error. Looks like Keychain Sharing is disabled. Please enable it in the 'Capabilities' tab.")
         }
         return status == errSecSuccess
     }
-    
+
     func set(value: String, forKey key: String) {
         guard let data = value.data(using: String.Encoding.utf8) else { return }
-        
+
         var query = self.query(extraDictionary: [String(kSecAttrAccount): key as AnyObject])
 
         if self.value(forKey: key) != nil {
@@ -38,15 +38,14 @@ class EGF2Keychain {
             if !checkStatus(status: SecItemUpdate(query as CFDictionary, attributes as CFDictionary)) {
                 print("EGF2Keychain error. Can't update value for key \(key)")
             }
-        }
-        else {
+        } else {
             query[String(kSecValueData)] = data as AnyObject
             if !checkStatus(status: SecItemAdd(query as CFDictionary, nil)) {
                 print("EGF2Keychain error. Can't save value for key \(key)")
             }
         }
     }
-    
+
     func value(forKey key: String) -> String? {
         let query = self.query(extraDictionary: [
             String(kSecAttrAccount): key as AnyObject,
@@ -54,7 +53,7 @@ class EGF2Keychain {
             String(kSecReturnData): kCFBooleanTrue
         ])
         var result: AnyObject?
-        
+
         if checkStatus(status: SecItemCopyMatching(query as CFDictionary, &result)) {
             if let data = result as? Data, let string = String(data: data, encoding: .utf8) {
                 return string
@@ -62,11 +61,11 @@ class EGF2Keychain {
         }
         return nil
     }
-    
+
     func deleteValue(forKey key: String) {
         let query = self.query(extraDictionary: [String(kSecAttrAccount): key as AnyObject])
         let status = SecItemDelete(query as CFDictionary)
-        
+
         if status != errSecItemNotFound {
             if !checkStatus(status: status) {
                 print("EGF2Keychain error. Can't delete value for key \(key)")

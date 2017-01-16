@@ -13,31 +13,29 @@ class LoginController: UIViewController {
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    
+
     @IBAction func login(_ sender: AnyObject) {
         errorLabel.text = nil
-        
+
         guard let email = emailTextField.text, let password = passwordTextField.text,
             email.isEmpty == false, password.isEmpty == false else {
             errorLabel.text = "Enter email and password"
             return
         }
-        Graph.login(withEmail: email, password: password) { (object, error) in
+        Graph.login(withEmail: email, password: password) { (_, error) in
             if let err = error {
                 self.errorLabel.text = err.localizedDescription
-            }
-            else {
+            } else {
                 self.getUserObject()
             }
         }
     }
-    
+
     func getUserObject() {
-        Graph.userObject { (object, error) in
+        Graph.userObject { (_, error) in
             if let err = error {
                 self.errorLabel.text = "Can't get user. \(err.localizedDescription)"
-            }
-            else {
+            } else {
                 self.dismiss(animated: true, completion: nil)
             }
         }

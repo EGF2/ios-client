@@ -9,11 +9,10 @@
 import Foundation
 import CoreData
 
-
 extension GraphEdge {
 
     @nonobjc class func fetchRequest() -> NSFetchRequest<GraphEdge> {
-        return NSFetchRequest<GraphEdge>(entityName: "GraphEdge");
+        return NSFetchRequest<GraphEdge>(entityName: "GraphEdge")
     }
 
     @NSManaged var count: NSNumber?
