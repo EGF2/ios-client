@@ -26,19 +26,35 @@
     [[Graph main] userObjectWithCompletion:^(NSObject * object, NSError * error) {
         if ([object isMemberOfClass:User.self]) {
             User * user = (User*)object;
-            self.firstNameTextField.text = user.name.given;
-            self.lastNameTextField.text = user.name.family;
             [self setUser:user];
-            [self userDataDidUpdate];
+            [[Graph main] addObserver:self selector:@selector(userDidUpdate:) name:EGF2NotificationObjectUpdated forSource:user.id];
         }
     }];
+}
+
+- (void)dealloc {
+    [[Graph main] removeObserver:self name:EGF2NotificationObjectUpdated fromSource:_oldUserObject.id];
 }
 
 - (void)setUser:(User *)user {
     _oldUserObject = user;
     _userObject = [user copyGraphObject];
+    _firstNameTextField.text = user.name.given;
+    _lastNameTextField.text = user.name.family;
     [self userDataDidUpdate];
 }
+
+- (void)userDidUpdate:(NSNotification *)notification {
+    NSString * objectId = notification.userInfo[EGF2ObjectIdInfoKey];
+    
+    [[Graph main] objectWithId:objectId completion:^(NSObject * object, NSError * error) {
+        if ([object isMemberOfClass:User.self]) {
+            [self setUser:(User*)object];
+        }
+    }];
+}
+
+
 
 - (IBAction)save:(id)sender {
     if (!_oldUserObject.id) {
@@ -46,12 +62,7 @@
     }
     NSDictionary * changes = [_userObject changesFromGraphObject:_oldUserObject];
     [self.view endEditing:true];
-
-    [[Graph main] updateObjectWithId:_oldUserObject.id parameters:changes completion:^(NSObject * object, NSError * error) {
-        if ([object isMemberOfClass:[User class]]) {
-            [self setUser:(User*)object];
-        }
-    }];
+    [[Graph main] updateObjectWithId:_oldUserObject.id parameters:changes completion:nil];
 }
 
 - (IBAction)textDidChange:(id)sender {

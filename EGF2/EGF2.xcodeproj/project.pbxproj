@@ -27,7 +27,10 @@
 		E54C9FD81DF6991E00AC4F4E /* GraphEdge+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54C9FD41DF6991E00AC4F4E /* GraphEdge+CoreDataProperties.swift */; };
 		E550E0AA1DD3169400DF2BA5 /* EGF2Graph+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E550E0A91DD3169400DF2BA5 /* EGF2Graph+CoreData.swift */; };
 		E550E0AC1DD31A1300DF2BA5 /* EGF2Graph+API.swift in Sources */ = {isa = PBXBuildFile; fileRef = E550E0AB1DD31A1300DF2BA5 /* EGF2Graph+API.swift */; };
+		E55B5C811E32157E00851862 /* SSLSecurity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E55B5C801E32157E00851862 /* SSLSecurity.swift */; };
 		E56752FE1DEEA6280092D64D /* EGF2.m in Sources */ = {isa = PBXBuildFile; fileRef = E56752FD1DEEA6280092D64D /* EGF2.m */; };
+		E5835E0D1E2F594500B4255A /* WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5835E0B1E2F594500B4255A /* WebSocket.swift */; };
+		E5835E0F1E2F595F00B4255A /* EGF2Graph+WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5835E0E1E2F595F00B4255A /* EGF2Graph+WebSocket.swift */; };
 		E5A398C31DD5A10D00609F50 /* Date+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A398C21DD5A10D00609F50 /* Date+Additions.swift */; };
 		E5C4E1EE1DCB2E92002DA97D /* EGF2.h in Headers */ = {isa = PBXBuildFile; fileRef = E5C4E1EC1DCB2E92002DA97D /* EGF2.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E5C4E1F81DCB2EB6002DA97D /* EGF2API.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C4E1F41DCB2EB6002DA97D /* EGF2API.swift */; };
@@ -57,7 +60,10 @@
 		E54C9FD41DF6991E00AC4F4E /* GraphEdge+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "GraphEdge+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E550E0A91DD3169400DF2BA5 /* EGF2Graph+CoreData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EGF2Graph+CoreData.swift"; sourceTree = "<group>"; };
 		E550E0AB1DD31A1300DF2BA5 /* EGF2Graph+API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EGF2Graph+API.swift"; sourceTree = "<group>"; };
+		E55B5C801E32157E00851862 /* SSLSecurity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSLSecurity.swift; sourceTree = "<group>"; };
 		E56752FD1DEEA6280092D64D /* EGF2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGF2.m; sourceTree = "<group>"; };
+		E5835E0B1E2F594500B4255A /* WebSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSocket.swift; sourceTree = "<group>"; };
+		E5835E0E1E2F595F00B4255A /* EGF2Graph+WebSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EGF2Graph+WebSocket.swift"; sourceTree = "<group>"; };
 		E5A398C21DD5A10D00609F50 /* Date+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Additions.swift"; sourceTree = "<group>"; };
 		E5C4E1E91DCB2E92002DA97D /* EGF2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EGF2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5C4E1EC1DCB2E92002DA97D /* EGF2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EGF2.h; sourceTree = "<group>"; };
@@ -106,6 +112,23 @@
 			path = GraphModel;
 			sourceTree = "<group>";
 		};
+		E5835E081E2F594500B4255A /* Libs */ = {
+			isa = PBXGroup;
+			children = (
+				E5835E091E2F594500B4255A /* Starscream */,
+			);
+			path = Libs;
+			sourceTree = "<group>";
+		};
+		E5835E091E2F594500B4255A /* Starscream */ = {
+			isa = PBXGroup;
+			children = (
+				E55B5C801E32157E00851862 /* SSLSecurity.swift */,
+				E5835E0B1E2F594500B4255A /* WebSocket.swift */,
+			);
+			path = Starscream;
+			sourceTree = "<group>";
+		};
 		E5C4E1DF1DCB2E92002DA97D = {
 			isa = PBXGroup;
 			children = (
@@ -134,6 +157,7 @@
 				E5DB063E1DE8115900741C98 /* EGF2Error.swift */,
 				E5210ABE1DD0731F00D9470C /* Extensions */,
 				E5C4E1F61DCB2EB6002DA97D /* Graph */,
+				E5835E081E2F594500B4255A /* Libs */,
 				E5C4E1FB1DCB2EC8002DA97D /* Supporting Files */,
 			);
 			path = EGF2;
@@ -145,6 +169,7 @@
 				E5C4E1F71DCB2EB6002DA97D /* EGF2Graph.swift */,
 				E550E0AB1DD31A1300DF2BA5 /* EGF2Graph+API.swift */,
 				E550E0A91DD3169400DF2BA5 /* EGF2Graph+CoreData.swift */,
+				E5835E0E1E2F595F00B4255A /* EGF2Graph+WebSocket.swift */,
 				E54C7D971DED6D0B002B3327 /* EGF2Graph+Notifications.swift */,
 				E5215D7A1DD198DD00C11640 /* GraphModel */,
 			);
@@ -255,10 +280,13 @@
 				E54C9FD51DF6991E00AC4F4E /* GraphObject+CoreDataClass.swift in Sources */,
 				E5210AC81DD0897600D9470C /* EGF2GraphAPI.swift in Sources */,
 				E550E0AA1DD3169400DF2BA5 /* EGF2Graph+CoreData.swift in Sources */,
+				E5835E0F1E2F595F00B4255A /* EGF2Graph+WebSocket.swift in Sources */,
 				E521578F1DE6F19D007FEC19 /* GraphEdgeObject+CoreDataClass.swift in Sources */,
 				E5215D8E1DD1D63A00C11640 /* EGF2Directory.swift in Sources */,
+				E55B5C811E32157E00851862 /* SSLSecurity.swift in Sources */,
 				E54C9FD71DF6991E00AC4F4E /* GraphEdge+CoreDataClass.swift in Sources */,
 				E54C9FD61DF6991E00AC4F4E /* GraphObject+CoreDataProperties.swift in Sources */,
+				E5835E0D1E2F594500B4255A /* WebSocket.swift in Sources */,
 				E5C4E1F81DCB2EB6002DA97D /* EGF2API.swift in Sources */,
 				E5F2815B1E275FD7009F072C /* Array+Additions.swift in Sources */,
 				E5210AC01DD0733D00D9470C /* NSObject+Additions.swift in Sources */,

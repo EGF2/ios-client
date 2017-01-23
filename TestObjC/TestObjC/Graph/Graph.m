@@ -16,7 +16,8 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         mainGraph = [[EGF2Graph alloc] initWithName:@"EGF2"];
-        mainGraph.serverURL = [[NSURL alloc] initWithString:@"http://dev.ayawuu.com/v1"];
+        mainGraph.serverURL = [[NSURL alloc] initWithString:@"http://guide.eigengraph.com/v1/"];
+        mainGraph.webSocketURL = [[NSURL alloc] initWithString:@"ws://guide.eigengraph.com:980/v1/listen"];
         mainGraph.idsWithModelTypes = @{
                                         @"03": User.self,
                                         @"08": Product.self,

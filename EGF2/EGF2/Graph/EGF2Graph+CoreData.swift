@@ -46,14 +46,8 @@ extension EGF2Graph {
         return nil
     }
 
-    func deleteGraphObject(withId id: String, completion: @escaping () -> Void) {
-        let predicate = NSPredicate(format: "id = %@", id)
-        objects(withName: "GraphObject", predicate: predicate, fetchLimit: 1) { (objects) in
-            if let object = objects?.first {
-                self.container.viewContext.delete(object)
-            }
-            completion()
-        }
+    func delete(graphObject: GraphObject) {
+        self.container.viewContext.delete(graphObject)
     }
 
     func graphObject(withId id: String, completion: @escaping (GraphObject?) -> Void) {

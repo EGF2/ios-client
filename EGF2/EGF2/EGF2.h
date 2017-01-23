@@ -24,8 +24,8 @@ extern NSString * const EGF2EdgeObjectsCountInfoKey;
 // For Objective-C only
 extern NSString * const EGF2NotificationEdgeCreated;
 extern NSString * const EGF2NotificationEdgeRemoved;
-extern NSString * const EGF2NotificationEdgeRefreshed;
-extern NSString * const EGF2NotificationEdgePageLoaded;
-extern NSString * const EGF2NotificationObjectCreated;
 extern NSString * const EGF2NotificationObjectUpdated;
 extern NSString * const EGF2NotificationObjectDeleted;
+
+extern NSString * const EGF2NotificationEdgeLocallyRefreshed;
+extern NSString * const EGF2NotificationEdgeLocallyPageLoaded;

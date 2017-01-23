@@ -100,6 +100,22 @@ class Post: BaseObject {
     var imageObject: File?
 }
 
+class Comment: BaseObject {
+    var creator: String?
+    var creatorObject: User?
+    var post: String?
+    var postObject: Post?
+    var text: String?
+
+    override func requiredFields() -> [String] {
+        return super.requiredFields() + [
+            "creator",
+            "post",
+            "text"
+        ]
+    }
+}
+
 class DesignerRole: BaseObject {
     var user: String?
     var userObject: User?

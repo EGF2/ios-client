@@ -12,13 +12,15 @@ import EGF2
 var Graph: EGF2Graph = {
     let graph = EGF2Graph(name: "EGF2")!
     graph.serverURL = URL(string: "http://guide.eigengraph.com/v1/")
-    graph.showCacheLogs = true
+    graph.webSocketURL = URL(string: "ws://guide.eigengraph.com:980/v1/listen")
+    graph.showLogs = true
     graph.idsWithModelTypes = [
         "03": User.self,
         "08": Product.self,
         "33": DesignerRole.self,
         "09": Collection.self,
         "12": Post.self,
+        "13": Comment.self,
         "06": File.self,
         "16": Message.self
     ]

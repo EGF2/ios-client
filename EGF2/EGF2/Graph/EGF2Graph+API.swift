@@ -35,6 +35,7 @@ extension EGF2Graph {
             self.api.authorization = value
             self.account.userToken = value
             self.account.save()
+            self.webSocketConnect()
             completion(true, nil)
         } else {
             completion(false, EGF2Error(code: .wrongResponse))
@@ -103,9 +104,11 @@ extension EGF2Graph {
 
     public func logout(withCompletion completion: @escaping Completion) {
         api.logout { (_, error) in
+            self.subscriptions.removeAll()
             self.api.authorization = nil
             self.account.reset()
             self.coreDataSave()
+            self.webSocketDisonnect()
             self.deleteAllCoreDataObjects()
             completion(nil, error)
         }

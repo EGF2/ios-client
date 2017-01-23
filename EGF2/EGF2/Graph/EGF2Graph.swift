@@ -14,16 +14,21 @@ public class EGF2Graph: NSObject {
     var api = EGF2GraphAPI()
     var account: EGF2Account
     var container: NSPersistentContainer!
-
+    var webSocket: WebSocket?
+    var webSocketPingTimer: Timer?
+    var webSocketIsConnecting = false
+    var notificationCenter = NotificationCenter()
+    
     static fileprivate let notTheFirstPageKey = "notTheFirstPage"
     internal var notificationObjects = [String: Any]()
+    internal var subscriptions = [String: EGF2Subscription]()
     fileprivate var isInternalRefresh = false
 
     public var maxPageSize = 50
     public var defaultPageSize = 20
     public var isObjectPaginationMode = false
     public var idsWithModelTypes: [String: NSObject.Type] = [:]
-    public var showCacheLogs = false
+    public var showLogs = false
 
     public var serverURL: URL? {
         didSet {
@@ -31,6 +36,12 @@ public class EGF2Graph: NSObject {
         }
     }
 
+    public var webSocketURL: URL? {
+        didSet {
+            webSocketConnect()
+        }
+    }
+    
     public var isAuthorized: Bool {
         get {
             return api.authorization?.isEmpty == false
@@ -55,6 +66,8 @@ public class EGF2Graph: NSObject {
         super.init()
         NotificationCenter.default.addObserver(self, selector: #selector(coreDataSave), name: .UIApplicationWillTerminate, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(coreDataSave), name: .UIApplicationDidEnterBackground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(webSocketConnect), name: .UIApplicationDidBecomeActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(webSocketDisonnect), name: .UIApplicationDidEnterBackground, object: nil)
     }
 
     deinit {
@@ -480,7 +493,7 @@ public class EGF2Graph: NSObject {
     }
 
     public func refreshObject(withId id: String, expand: [String], completion: ObjectBlock?) {
-        if showCacheLogs {
+        if showLogs {
             print("EGF2Graph. Loading object with id '\(id)' from server")
         }
         api.object(withId: id, parameters: ["expand": expand.joined(separator: ",")]) { (response, error) in
@@ -519,46 +532,57 @@ public class EGF2Graph: NSObject {
                 return
             }
             self.object(withResponse: response) { (result, error) in
-                if let object = result, let id = object.value(forKey: "id") as? String {
-                    NotificationCenter.default.post(name: .EGF2ObjectCreated, object: nil, userInfo: [EGF2ObjectIdInfoKey: id])
-                }
                 completion?(result, error)
             }
         }
     }
 
     public func updateObject(withId id: String, parameters: [String: Any], completion: ObjectBlock?) {
-        api.updateObject(withId: id, parameters: parameters) { (_, error) in
+        api.updateObject(withId: id, parameters: parameters) { (response, error) in
             if let _ = error {
                 completion?(nil, error)
                 return
             }
-            self.findGraphObject(withId: id) { (graphObject) in
-                guard let object = graphObject else {
-                    self.refreshObject(withId: id, completion: completion)
+            guard let dictionary = response as? [String: Any] else {
+                completion?(nil, EGF2Error(code: .wrongResponse))
+                return
+            }
+            self.internalUpdateObject(withId: id, dictionary: dictionary, completion: completion)
+        }
+    }
+    
+    func internalUpdateObject(withId id: String, dictionary: [String: Any], completion: ObjectBlock?) {
+        func finishCompletion() {
+            self.object(withId: id) { (object, error) in
+                completion?(object, error)
+                self.notificationCenter.post(name: .EGF2ObjectUpdated, object: self.notificationObject(forSource: id), userInfo: [EGF2ObjectIdInfoKey: id])
+            }
+        }
+        findGraphObject(withId: id) { (graphObject) in
+            guard let theGraphObject = graphObject else {
+                self.updateObject(withDictionary: dictionary) {
+                    finishCompletion()
+                }
+                return
+            }
+            self.tryLoad(graphObject: theGraphObject, withExpand: [:]) { (object) in
+                guard let cachedObject = object else {
+                    completion?(nil, EGF2Error(code: .invalidDataInCoreData, reason: "Can't load object from Core Data with id = \(id)"))
                     return
                 }
-                guard let data = object.data as? Data, var dictionary = data.jsonObject() as? [String: Any], let type = self.objectType(byId: id) else {
-                    print("EGF2Graph error. Core data object with id = '\(id)' conatins invalid data")
-                    completion?(nil, EGF2Error(code: .invalidDataInCoreData, reason: "Core data object with id = '\(id)' conatins invalid data"))
+                guard let type = self.objectType(byId: id) else {
+                    completion?(nil, EGF2Error(code: .unknownObjectType))
                     return
                 }
-                for (key, value) in self.fixedDictionary(parameters) {
-                    dictionary[key] = value
-                }
-                if let deleteFields = parameters["delete_fields"] as? [String] {
-                    for key in deleteFields {
-                        dictionary.removeValue(forKey: key)
+                let fixedDictionary = self.fixedDictionary(dictionary)
+                let newObject = self.objectWith(type: type, dictionary: fixedDictionary)
+                
+                if !cachedObject.isEqual(graphObject: newObject) {
+                    if let data = Data(jsonObject: fixedDictionary) {
+                        theGraphObject.data = data as NSData
                     }
+                    finishCompletion()
                 }
-                if let data = Data(jsonObject: dictionary) {
-                    object.data = data as NSData
-                }
-                let updatedObject = self.objectWith(type: type, dictionary: dictionary)
-                completion?(updatedObject, nil)
-                NotificationCenter.default.post(name: .EGF2ObjectUpdated,
-                                                object: self.notificationObject(forSource: id),
-                                                userInfo: [EGF2ObjectIdInfoKey: id])
             }
         }
     }
@@ -589,12 +613,29 @@ public class EGF2Graph: NSObject {
                 completion?(nil, error)
                 return
             }
-            self.deleteGraphObject(withId: id) {
+            self.internalDeleteObject(withId: id, completion: completion)
+        }
+    }
+    
+    fileprivate var deletingObjects = [String]()
+    
+    func internalDeleteObject(withId id: String, completion: Completion?) {
+        // Check if we are already deleting the object
+        if deletingObjects.contains(id) {
+            completion?(nil, nil)
+            return
+        }
+        deletingObjects.append(id)
+
+        findGraphObject(withId: id) { (graphObject) in
+            guard let object = graphObject else {
                 completion?(nil, nil)
-                NotificationCenter.default.post(name: .EGF2ObjectDeleted,
-                                                object: self.notificationObject(forSource: id),
-                                                userInfo: [EGF2ObjectIdInfoKey: id])
+                return
             }
+            self.delete(graphObject: object)
+            completion?(nil, nil)
+            self.notificationCenter.post(name: .EGF2ObjectDeleted, object: self.notificationObject(forSource: id), userInfo: [EGF2ObjectIdInfoKey: id])
+            self.deletingObjects.remove(id)
         }
     }
 
@@ -611,28 +652,15 @@ public class EGF2Graph: NSObject {
                     return
                 }
                 guard let target = object?.value(forKey: "id") as? String else {
-                    completion?(nil, error)
+                    completion?(nil, EGF2Error(code: .wrongResponse))
                     return
                 }
-                self.findGraphEdgeObjects(withSource: source, edge: edge) { (graphEdgeObjects) in
-                    if let objects = graphEdgeObjects {
-                        for i in 0..<objects.count {
-                            objects[i].index = NSNumber(value: i + 1)
-                        }
+                self.internalAddObject(withId: target, forSource: source, toEdge: edge) { (_, error) in
+                    if let _ = error {
+                        completion?(nil, error)
+                        return
                     }
-                    _ = self.newGraphEdgeObject(withSource: source, edge: edge, target: target, index: 0)
-
-                    self.graphEdge(withSource: source, edge: edge) { (graphEdge) in
-                        if let theGraphEdge = graphEdge {
-                            let count = theGraphEdge.count?.intValue ?? 0
-                            theGraphEdge.count = NSNumber(value: count + 1)
-                        }
-                        completion?(object, nil)
-                        NotificationCenter.default.post(name: .EGF2ObjectCreated, object: nil, userInfo: [EGF2ObjectIdInfoKey: target])
-                        NotificationCenter.default.post(name: .EGF2EdgeCreated,
-                                                        object: self.notificationObject(forSource: source, andEdge: edge),
-                                                        userInfo: [EGF2ObjectIdInfoKey: source, EGF2EdgeInfoKey: edge, EGF2EdgeObjectIdInfoKey: target])
-                    }
+                    completion?(object, nil)
                 }
             }
         }
@@ -642,26 +670,47 @@ public class EGF2Graph: NSObject {
         api.addObject(withId: id, forSource: source, onEdge: edge) { (_, error) in
             if let _ = error {
                 completion?(nil, error)
-                return
+            } else {
+                self.internalAddObject(withId: id, forSource: source, toEdge: edge, completion: completion)
             }
-            self.findGraphEdgeObjects(withSource: source, edge: edge) { (graphEdgeObjects) in
-                if let objects = graphEdgeObjects {
-                    for i in 0..<objects.count {
-                        objects[i].index = NSNumber(value: i + 1)
-                    }
-                }
-                _ = self.newGraphEdgeObject(withSource: source, edge: edge, target: id, index: 0)
-
-                self.graphEdge(withSource: source, edge: edge) { (graphEdge) in
-                    if let theGraphEdge = graphEdge {
-                        let count = theGraphEdge.count?.intValue ?? 0
-                        theGraphEdge.count = NSNumber(value: count + 1)
-                    }
+        }
+    }
+    
+    fileprivate var addingEdges = [String]()
+    
+    func internalAddObject(withId id: String, forSource source: String, toEdge edge: String, completion: Completion?) {
+        let key = "\(source)\(edge)\(id)"
+        
+        // Check if we are already adding the edge
+        if addingEdges.contains(key) {
+            completion?(nil, nil)
+            return
+        }
+        addingEdges.append(key)
+        
+        findGraphEdgeObjects(withSource: source, edge: edge) { (graphEdgeObjects) in
+            if let objects = graphEdgeObjects {
+                // If edge already exists then do nothing
+                if let _ = objects.first(where: {$0.target == id}) {
                     completion?(nil, nil)
-                    NotificationCenter.default.post(name: .EGF2EdgeCreated,
-                                                    object: self.notificationObject(forSource: source, andEdge: edge),
-                                                    userInfo: [EGF2ObjectIdInfoKey: source, EGF2EdgeInfoKey: edge, EGF2EdgeObjectIdInfoKey: id])
+                    return
                 }
+                for i in 0..<objects.count {
+                    objects[i].index = NSNumber(value: i + 1)
+                }
+            }
+            _ = self.newGraphEdgeObject(withSource: source, edge: edge, target: id, index: 0)
+            
+            self.graphEdge(withSource: source, edge: edge) { (graphEdge) in
+                if let theGraphEdge = graphEdge {
+                    let count = theGraphEdge.count?.intValue ?? 0
+                    theGraphEdge.count = NSNumber(value: count + 1)
+                }
+                completion?(nil, nil)
+                self.notificationCenter.post(name: .EGF2EdgeCreated,
+                                             object: self.notificationObject(forSource: source, andEdge: edge),
+                                             userInfo: [EGF2ObjectIdInfoKey: source, EGF2EdgeInfoKey: edge, EGF2EdgeObjectIdInfoKey: id])
+                self.addingEdges.remove(key)
             }
         }
     }
@@ -670,30 +719,51 @@ public class EGF2Graph: NSObject {
         api.deleteObject(withId: id, forSource: source, fromEdge: edge) { (_, error) in
             if let _ = error {
                 completion?(nil, error)
-                return
-            }
-            self.findGraphEdgeObjects(withSource: source, edge: edge) { (graphEdgeObjects) in
-                if let objects = graphEdgeObjects, let graphEdgeObject = objects.first(where: {$0.target == id}) {
-                    let index = objects.index(of: graphEdgeObject)! + 1
-
-                    for i in index..<objects.count {
-                        objects[i].index = NSNumber(value: i - 1)
-                    }
-                    self.container.viewContext.delete(graphEdgeObject)
-                }
-                self.findGraphEdge(withSource: source, edge: edge) { (graphEdge) in
-                    if let theGraphEdge = graphEdge, let count = theGraphEdge.count?.intValue {
-                        theGraphEdge.count = NSNumber(value: max(count - 1, 0))
-                    }
-                    completion?(nil, nil)
-                    NotificationCenter.default.post(name: .EGF2EdgeRemoved,
-                                                    object: self.notificationObject(forSource: source, andEdge: edge),
-                                                    userInfo: [EGF2ObjectIdInfoKey: source, EGF2EdgeInfoKey: edge, EGF2EdgeObjectIdInfoKey: id])
-                }
+            } else {
+                self.internalDeleteObject(withId: id, forSource: source, fromEdge: edge, completion: completion)
             }
         }
     }
 
+    fileprivate var deletingEdges = [String]()
+    
+    func internalDeleteObject(withId id: String, forSource source: String, fromEdge edge: String, completion: Completion?) {
+        let key = "\(source)\(edge)\(id)"
+        
+        // Check if we are already deleting the edge
+        if deletingEdges.contains(key) {
+            completion?(nil, nil)
+            return
+        }
+        deletingEdges.append(key)
+        
+        findGraphEdgeObjects(withSource: source, edge: edge) { (graphEdgeObjects) in
+            if let objects = graphEdgeObjects, let graphEdgeObject = objects.first(where: {$0.target == id}) {
+                let index = objects.index(of: graphEdgeObject)! + 1
+                
+                for i in index..<objects.count {
+                    objects[i].index = NSNumber(value: i - 1)
+                }
+                self.container.viewContext.delete(graphEdgeObject)
+            } else {
+                // Edge doesn't exist
+                completion?(nil, nil)
+                self.deletingEdges.remove(key)
+                return
+            }
+            self.findGraphEdge(withSource: source, edge: edge) { (graphEdge) in
+                if let theGraphEdge = graphEdge, let count = theGraphEdge.count?.intValue {
+                    theGraphEdge.count = NSNumber(value: max(count - 1, 0))
+                }
+                completion?(nil, nil)
+                self.notificationCenter.post(name: .EGF2EdgeRemoved,
+                                             object: self.notificationObject(forSource: source, andEdge: edge),
+                                             userInfo: [EGF2ObjectIdInfoKey: source, EGF2EdgeInfoKey: edge, EGF2EdgeObjectIdInfoKey: id])
+                self.deletingEdges.remove(key)
+            }
+        }
+    }
+    
     public func doesObject(withId id: String, existForSource source: String, onEdge edge: String, completion: @escaping (_ isExist: Bool, _ error: NSError?) -> Void) {
         findGraphEdgeObject(withSource: source, edge: edge, target: id) { (graphEdgeObject) in
             if let _ = graphEdgeObject {
@@ -846,7 +916,7 @@ public class EGF2Graph: NSObject {
 
     internal func internalRefreshObjects(forSource source: String, edge: String, after: String?, expand: [String], count: Int, isManualRefresh: Bool, completion: ObjectsBlock?) {
 
-        if showCacheLogs {
+        if showLogs {
             print("EGF2Graph. Loading objects for source = '\(source)' from edge = '\(edge)' from server")
         }
         var parameters = [String: Any]()
@@ -885,9 +955,9 @@ public class EGF2Graph: NSObject {
                         EGF2EdgeObjectsCountInfoKey: count
                     ]
                     if isManualRefresh && after == nil {
-                        NotificationCenter.default.post(name: .EGF2EdgeRefreshed, object: object, userInfo: userInfo)
+                        NotificationCenter.default.post(name: .EGF2EdgeLocallyRefreshed, object: object, userInfo: userInfo)
                     } else {
-                        NotificationCenter.default.post(name: .EGF2EdgePageLoaded, object: object, userInfo: userInfo)
+                        NotificationCenter.default.post(name: .EGF2EdgeLocallyPageLoaded, object: object, userInfo: userInfo)
                     }
                 }
             }
