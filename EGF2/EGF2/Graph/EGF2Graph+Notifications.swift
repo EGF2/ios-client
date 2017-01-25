@@ -10,14 +10,14 @@ import Foundation
 
 extension EGF2Graph {
 
-    func notificationObject(forSource source: String) -> Any {
+    public func notificationObject(forSource source: String) -> Any {
         if notificationObjects[source] == nil {
             notificationObjects[source] = NSObject()
         }
         return notificationObjects[source]!
     }
 
-    func notificationObject(forSource source: String, andEdge edge: String) -> Any {
+    public func notificationObject(forSource source: String, andEdge edge: String) -> Any {
         let key = source + edge
         if notificationObjects[key] == nil {
             notificationObjects[key] = NSObject()

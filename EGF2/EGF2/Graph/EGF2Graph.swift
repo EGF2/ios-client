@@ -552,16 +552,19 @@ public class EGF2Graph: NSObject {
     }
     
     func internalUpdateObject(withId id: String, dictionary: [String: Any], completion: ObjectBlock?) {
-        func finishCompletion() {
+        func finishCompletion(shouldNotify: Bool) {
             self.object(withId: id) { (object, error) in
                 completion?(object, error)
-                self.notificationCenter.post(name: .EGF2ObjectUpdated, object: self.notificationObject(forSource: id), userInfo: [EGF2ObjectIdInfoKey: id])
+                
+                if shouldNotify {
+                    self.notificationCenter.post(name: .EGF2ObjectUpdated, object: self.notificationObject(forSource: id), userInfo: [EGF2ObjectIdInfoKey: id])
+                }
             }
         }
         findGraphObject(withId: id) { (graphObject) in
             guard let theGraphObject = graphObject else {
                 self.updateObject(withDictionary: dictionary) {
-                    finishCompletion()
+                    finishCompletion(shouldNotify: true)
                 }
                 return
             }
@@ -581,7 +584,9 @@ public class EGF2Graph: NSObject {
                     if let data = Data(jsonObject: fixedDictionary) {
                         theGraphObject.data = data as NSData
                     }
-                    finishCompletion()
+                    finishCompletion(shouldNotify: true)
+                } else {
+                    finishCompletion(shouldNotify: false)
                 }
             }
         }
